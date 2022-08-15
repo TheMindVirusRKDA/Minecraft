@@ -49,7 +49,7 @@ jobs:
       # Install Java
       - name: Install Java
         run: |
-          sudo apt-get install java
+          sudo apt-get install default-jre
 
       # Download Minecraft Server
       - name: Download Minecraft Server
