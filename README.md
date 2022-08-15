@@ -1,2 +1,2 @@
 # Minecraft
-Minecraft Java Edition NetRunner
+Minecraft Java Edition NetRunner for testing purposes only
