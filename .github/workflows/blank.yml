@@ -1,0 +1,72 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Minecraft Server CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+  
+# Allow one concurrent deployment (might have to add group)
+concurrency:
+  group: "Minecraft Server CI"
+  cancel-in-progress: true  
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
+
+      # Updates and Upgrades Ubuntu Packages
+      - name: Update and Upgrade
+        run: |
+          sudo apt-get update
+          sudo apt-get upgrade
+
+      # Install Java
+      - name: Install Java
+        run: |
+          sudo apt-get install java
+
+      # Download Minecraft Server
+      - name: Download Minecraft Server
+        run: |
+          sudo wget "https://piston-data.mojang.com/v1/objects/f69c284232d7c7580bd89a5a4931c3581eae1378/server.jar"
+
+      # Run Minecraft Server in Background (would require admin to manually accept eula.txt and saving progress is an issue)
+      - name: Run Minecraft Server
+        run: |
+          java -Xms1G -Xmx1G -jar server.jar
+
+      # Obtain the DNS Public IP Address of the Instance (edge-based, can't check locally, can't check running processes)
+      - name: Obtain DNS Public IP Address
+        run: |
+          echo $(wget -qO- "https://cotahdd.synology.me/staging/dns")
+
+      # (Optional) Run while true loop to prevent instance shutdown on completion (ideally should be a running service)
+      - name: Prevent Instance Shutdown
+        run: |
+          while true; do wait; done
