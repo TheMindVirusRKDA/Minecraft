@@ -62,6 +62,8 @@ jobs:
       - name: Run Minecraft Server
         run: |
           /usr/lib/jvm/jdk-17/bin/java -Xms1G -Xmx1G -jar server.jar
+          echo "eula=true" > eula.txt
+          /usr/lib/jvm/jdk-17/bin/java -Xms1G -Xmx1G -jar server.jar
 
       # Obtain the DNS Public IP Address of the Instance (edge-based, can't check locally, can't check running processes)
       - name: Obtain DNS Public IP Address
