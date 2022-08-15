@@ -51,7 +51,7 @@ jobs:
         run: |
           sudo wget https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.deb
           sudo apt-get install ./jdk-17_linux-x64_bin.deb
-          java --version
+          ./usr/lib/jvm/jdk-17/bin/java --version
 
       # Download Minecraft Server
       - name: Download Minecraft Server
@@ -61,7 +61,7 @@ jobs:
       # Run Minecraft Server in Background (would require admin to manually accept eula.txt and saving progress is an issue)
       - name: Run Minecraft Server
         run: |
-          java -Xms1G -Xmx1G -jar server.jar
+          ./usr/lib/jvm/jdk-17/bin/java -Xms1G -Xmx1G -jar server.jar
 
       # Obtain the DNS Public IP Address of the Instance (edge-based, can't check locally, can't check running processes)
       - name: Obtain DNS Public IP Address
