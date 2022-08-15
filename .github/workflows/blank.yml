@@ -49,7 +49,9 @@ jobs:
       # Install Java
       - name: Install Java
         run: |
-          sudo apt-get install default-jre
+          sudo wget https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.deb
+          sudo apt-get install ./jdk-17_linux-x64_bin.deb
+          java --version
 
       # Download Minecraft Server
       - name: Download Minecraft Server
